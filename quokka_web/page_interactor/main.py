@@ -6,7 +6,7 @@ import playwright.async_api
 from gembox.debug_utils import Debugger
 from gembox.io import ensure_pathlib_path, check_and_make_dir
 
-from quokka.page_interactor.modules import CommonHandler, ScrollHandler, ClickHandler
+from quokka_web.page_interactor.modules import CommonHandler, ScrollHandler, ClickHandler
 
 
 class PageInteractor:

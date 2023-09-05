@@ -1,4 +1,4 @@
-from quokka.page_interactor.modules.handler import Handler
+from quokka_web.page_interactor.modules.handler import Handler
 
 
 class ClickHandler(Handler):

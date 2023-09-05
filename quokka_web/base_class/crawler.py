@@ -4,7 +4,7 @@ import pathlib
 import traceback
 from typing import List, Dict, Type
 
-from quokka import Agent
+from quokka_web import Agent
 from gembox.io import check_and_make_dir
 from gembox.multiprocess import Task, ParallelExecutor
 from gembox.debug_utils import Debugger, FileConsoleDebugger, FileDebugger
@@ -18,10 +18,10 @@ class BaseCrawler(abc.ABC):
 
     Crawler is responsible for interacting with the browser, save the webpage and parse the webpage to get data.
 
-    **Note: The default browser agent is `quokka.agent.Agent`, you can replace it by specify `agent_cls` class variable.**
+    **Note: The default browser agent is `quokka_web.agent.Agent`, you can replace it by specify `agent_cls` class variable.**
     """
     agent_cls: Type[Agent] = Agent
-    """the browser agent class, it should be a subclass of `quokka.agent.Agent`"""
+    """the browser agent class, it should be a subclass of `quokka_web.agent.Agent`"""
 
     def __init__(self, browser_agent, debug_tool: Debugger):
         self._browser_agent = browser_agent
@@ -104,7 +104,7 @@ class BaseCrawler(abc.ABC):
         if not hasattr(cls, 'agent_cls'):
             raise NotImplementedError(f"agent_cls is not specified in {cls.__name__}, Please specify it first.")
         assert issubclass(cls.agent_cls,
-                          Agent), f"agent_cls must be a subclass of `quokka.agent.Agent`, but got {cls.agent_cls.__name__}"
+                          Agent), f"agent_cls must be a subclass of `quokka_web.agent.Agent`, but got {cls.agent_cls.__name__}"
 
         debug_tool = Debugger() if debug_tool is None else debug_tool
         browser_agent = await cls.agent_cls.instantiate(headless=headless, debug_tool=debug_tool)
@@ -122,7 +122,7 @@ class BaseCrawler(abc.ABC):
         """
         Parallel crawl function.
 
-        To enable parallel crawling, just specify a `log_dir` and `crawl_args_list`. (You must enable logging for later debugging convinience)
+        To enable parallel crawling, just specify a `log_dir` and `crawl_args_list`. (You must enable logging for later debugging convenience)
 
         The result will be output to `output_dir`. And logs will be saved to `output_dir/logs`.
 
@@ -182,9 +182,8 @@ class BaseCrawler(abc.ABC):
         file_name = cls._crawler_args_str(**crawl_args)  # 生成文件名, 用于命名 log 文件, html 文件
         _quokka_log_dir = check_and_make_dir(_quokka_log_dir)
         log_path = _quokka_log_dir / f"{file_name}.log"
-        debugger = FileConsoleDebugger(filepath=log_path,
-                                       level=logging.DEBUG) if _quokka_verbose else FileDebugger(filepath=log_path,
-                                                                                                      level=logging.DEBUG)
+        debugger = FileConsoleDebugger(filepath=log_path, level=logging.DEBUG) if _quokka_verbose \
+            else FileDebugger(filepath=log_path, level=logging.DEBUG)
 
         # 2. 可重试的抓取
         finished, n_retry = False, 0

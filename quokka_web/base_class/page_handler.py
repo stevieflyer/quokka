@@ -1,6 +1,6 @@
 import abc
 
-from quokka.agent import Agent
+from quokka_web.agent import Agent
 from gembox.debug_utils import Debugger
 
 
@@ -8,12 +8,12 @@ class PageHandler(abc.ABC):
     """
     PageHandler is a base class for all page handlers.
 
-    PageHandler is responsible for handling one type of page. Multiple PageHandlers can form up a quokka agent.
+    PageHandler is responsible for handling one type of page. Multiple PageHandlers can form up a quokka_web agent.
     """
     page_type = None
 
     def __init__(self, agent: Agent, debug_tool: Debugger):
-        assert isinstance(agent, Agent), f"agent must be a `quokka.agent.Agent`, but {type(agent)}"
+        assert isinstance(agent, Agent), f"agent must be a `quokka_web.agent.Agent`, but {type(agent)}"
         self.agent = agent
         self.debug_tool = debug_tool
 

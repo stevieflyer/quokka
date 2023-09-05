@@ -15,13 +15,15 @@ Quokka is a powerful Python library built on top of Playwright, designed to simp
 ## Installation
 
 ```bash
-pip install quokka
+pip install quokka-web
 ```
 
 ## Getting Started
 Quokka's intuitive API makes browser automation a straightforward process. Here's a simple example:
+
 ```python
-from quokka import Agent
+from quokka_web import Agent
+
 
 async def main():
     agent = await Agent.instantiate(headless=True)
@@ -31,8 +33,10 @@ async def main():
 
     await agent.stop()
 
+
 if __name__ == "__main__":
     import asyncio
+
     asyncio.run(main())
 ```
 
@@ -45,19 +49,25 @@ For detailed usage instructions, examples, and customization options, please ref
 Base Crawler Example:
 
 ```python
-from quokka import BaseCrawler, Debugger
+from quokka_web import BaseCrawler, Debugger
+
 
 class MyCrawler(BaseCrawler):
     async def _crawl(self, *args, **kwargs):
-        # Core crawling logic using browser_agent
+# Core crawling logic using browser_agent
+
 
 if __name__ == "__main__":
     import asyncio
+
+
     async def main():
         crawler = await MyCrawler.instantiate(debug_tool=Debugger(verbose=True))
         await crawler.start()
         await crawler.crawl()
         await crawler.stop()
+
+
     asyncio.run(main())
 ```
 ## Contributing
