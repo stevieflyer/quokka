@@ -1,0 +1,7 @@
+playwright~=1.37.0
+gembox~=0.1.11.9
+pathlib~=1.0.1
+beautifulsoup4~=4.12.2
+aiofiles~=23.2.1
+lxml~=4.9.1
+setuptools~=67.8.0
