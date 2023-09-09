@@ -159,6 +159,15 @@ class PageInteractor:
             await f.write(content)
         self.debug_tool.info(f"Downloaded the {elem_str} successfully, page url: {self.page.url}, file_path: {file_path}")
 
+    async def go_back(self, **kwargs):
+        """
+        Go back to the previous page.
+
+        :param kwargs: (dict) the kwargs for `playwright.Page.go_back()`
+        :return: (None)
+        """
+        await self.page.go_back(**kwargs)
+
     @property
     def page(self) -> playwright.async_api.Page:
         return self._page

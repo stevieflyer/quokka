@@ -1,10 +1,13 @@
 from typing import Union
 
 import playwright
+from fake_useragent import UserAgent
 from playwright.async_api import async_playwright
 from gembox.debug_utils import Debugger
 
 from .exception import NoActivePageError
+
+ua = UserAgent()
 
 
 class SingleBrowserManager:
@@ -81,7 +84,7 @@ class SingleBrowserManager:
         if viewport is None:
             viewport = {'width': 1360, 'height': 900}
         self._browser = await self.wright.chromium.launch(headless=self.headless, **kwargs)
-        self._context = await self._browser.new_context(viewport=viewport)
+        self._context = await self._browser.new_context(viewport=viewport, user_agent=ua.random)  # randomize user agent
         self._page = await self._context.new_page()
         self._is_running = True
         self.debug_tool.info(f"[Browser Manager]: Browser started successfully.")
@@ -103,6 +106,13 @@ class SingleBrowserManager:
         await self.start()
 
     async def go(self, url: str, **kwargs):
+        """
+        Go to the url.
+
+        :param url: (str) the url to go
+        :param kwargs: (dict) the kwargs for `playwright.Page.goto()`
+        :return: (None)
+        """
         self.debug_tool.info(f"[Browser Manager]: Go to {url}...")
         if self.page is None:
             self.debug_tool.error(f"[Browser Manager]: No active page found.")
@@ -111,6 +121,12 @@ class SingleBrowserManager:
         self.debug_tool.info(f"[Browser Manager]: Go to {url} successfully")
 
     async def go_back(self, **kwargs):
+        """
+        Go back to the previous page.
+
+        :param kwargs: (dict) the kwargs for `playwright.Page.go_back()`
+        :return: (None)
+        """
         self.debug_tool.info(f"[Browser Manager]: Go back...")
         if self.page is None:
             self.debug_tool.error(f"[Browser Manager]: No active page found.")

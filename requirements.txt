@@ -5,3 +5,4 @@ beautifulsoup4~=4.12.2
 aiofiles~=23.2.1
 lxml~=4.9.1
 setuptools~=67.8.0
+fake-useragent

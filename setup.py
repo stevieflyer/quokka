@@ -9,7 +9,7 @@ def read_requirements():
 
 setup(
     name='quokka-web',
-    version='0.0.1',
+    version='0.0.1.2',
     packages=find_packages(exclude=['test', 'test.*']),
     install_requires=read_requirements(),
     author='steveflyer',
@@ -18,3 +18,4 @@ setup(
     long_description=open('./README.md').read(),
     long_description_content_type='text/markdown',
 )
+# python setup.py sdist bdist_wheel
