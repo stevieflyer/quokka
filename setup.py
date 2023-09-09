@@ -9,13 +9,13 @@ def read_requirements():
 
 setup(
     name='quokka-web',
-    version='0.0.1.2',
+    version='0.0.1.3',
     packages=find_packages(exclude=['test', 'test.*']),
     install_requires=read_requirements(),
     author='steveflyer',
     author_email='steveflyer7@gmail.com',
     description='Quokka is a powerful Python library built on top of Playwright, designed to simplify browser automation and web scraping tasks. With Quokka, you can easily navigate web pages, extract data, and interact with page elements using an intuitive API. Quokka supports asynchronous and parallel execution, making it suitable for a wide range of IO and CPU-bound workloads. Get started with Quokka to streamline your browser automation and web scraping workflows.',
-    long_description=open('./README.md').read(),
+    long_description=open('./README.md', encoding='utf-8').read(),
     long_description_content_type='text/markdown',
 )
 # python setup.py sdist bdist_wheel
